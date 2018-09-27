@@ -1,0 +1,27 @@
+.postcss-grid-test-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 2px 2px;
+  grid-auto-flow: row;
+}
+
+.postcss-grid-test-item {
+  background: #f5f5f5;
+
+  &:after {
+    content: '';
+    display: block;
+    margin-top: 100%;
+  }
+}
+
+.postcss-grid-test-item-2width {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.postcss-test-flex {
+  display: flex;
+}
+
