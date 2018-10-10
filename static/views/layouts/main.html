@@ -9,7 +9,28 @@
 </head>
 
 <body>
-  {{{body}}}
+  <div class="main-container">
+    <header class="main-header">
+      <p class="main-logo">My Logo</p>
+    </header>
+
+    <section class="main-wapper">
+      <nav class="main-nav">
+        <ul id="main_nav">
+          <li data-current="{{{mainMenu}}}" data-key="home">
+            <a href="/">首页</a>
+          </li>
+          <li data-current="{{{mainMenu}}}" data-key="simple_factory">
+            <a href="/simple_factory">简单工厂模式</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="main-content">
+        {{{body}}}
+      </div>
+    </section>
+  </div>
 </body>
 
 </html>

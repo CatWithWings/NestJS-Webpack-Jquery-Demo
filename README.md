@@ -24,6 +24,9 @@
  yarn format
 ```
 
+## preview page
+  localhost:3000
+
 ## PS
 
 ```

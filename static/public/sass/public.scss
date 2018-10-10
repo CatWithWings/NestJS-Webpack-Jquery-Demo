@@ -1,3 +1,6 @@
+@import "theme.scss";
+
+/* just test */
 .postcss-grid-test-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -25,3 +28,116 @@
   display: flex;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  font-family: '微软雅黑';
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* just test end */
+
+
+.main-container {
+  width: 100%;
+  height: 100vh;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+
+/* header */
+.main-header {
+  width: 100vw;
+  height: $mainHeaderHeight;
+  background: #fff;
+  -webkit-box-shadow: 0 2px 8px #f0f1f2;
+  box-shadow: 0 2px 8px #f0f1f2;
+  position: relative;
+  z-index: 10;
+
+  .main-logo {
+    width: $mainNavWdith;
+    height: $mainHeaderHeight;
+    line-height: $mainHeaderHeight;
+    float: left;
+    border-right: 1px solid #ebedf0;
+    padding: 0 0 0 40px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #314659;
+  }
+}
+
+/* main-content */
+.main-wapper {
+  flex-grow: 1;
+  padding: $mainWapperPaddingT 0 0 0;
+  display: flex;
+  flex-direction: row;
+}
+
+/* main-nav */
+.main-nav {
+  width: $mainNavWdith;
+  height: calc(100vh - $mainHeaderHeight - $mainWapperPaddingT);
+  flex-shrink: 0;
+
+  &>ul>li {
+    width: 100%;
+    clear: both;
+    position: relative;
+    z-index: 0;
+
+    &>a {
+      display: block;
+      padding: 0 40px 0 40px;
+      height: 40px;
+      line-height: 40px;
+      color: #314659;
+      text-decoration: none;
+
+      &:hover {
+        color: #1890ff;
+      }
+    }
+
+    &.active {
+      a {
+        background-color: #e6f7ff;
+        color: #1890ff;
+      }
+
+      &:after {
+        content: "";
+        width: 3px;
+        height: 40px;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #1890ff;
+      }
+    }
+  }
+}
+
+/* main-content */
+.main-content {
+  flex-grow: 1;
+  padding: 0 170px 144px 64px;
+  background: #fff;
+  min-height: 500px;
+  overflow: hidden;
+  border-left: 1px solid #ebedf0;
+  margin-left: -1px;
+}
+
+
+.margin-t-20 {
+  margin-top: 20px !important;
+}

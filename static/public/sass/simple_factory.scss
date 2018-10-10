@@ -1,0 +1,64 @@
+.model {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  display: none;
+
+  &.show {
+    display: block;
+  }
+
+  .model-content {
+    width: 480px;
+    min-height: 200px;
+    padding: 10px;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 20;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .context-wapper {
+    width: 100%;
+    min-height: 140px;
+    
+    &.has-btn {
+      margin-bottom: 48px;
+    }
+  }
+
+  .btn-wapper {
+    width: 120px;
+    height: 36px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+
+    .sure {
+      float: right;
+    }
+
+    .cancel {
+      float: right;
+      margin-left: 10px;
+      display: none;
+
+      &.show {
+        display: block;
+      }
+    }
+
+    &.show {
+      display: block;
+    }
+  }
+}

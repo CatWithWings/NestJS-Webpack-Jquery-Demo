@@ -14,6 +14,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       template: 'static/views/index.html',
       chunks: [ 'base', 'index.main'],
       chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '简单工厂模式',
+      filename: '../views/simple_factory.html',
+      template: 'static/views/simple_factory.html',
+      chunks: [ 'base', 'simple_factory.main'],
+      chunksSortMode: 'manual'
     })
   ];
 }

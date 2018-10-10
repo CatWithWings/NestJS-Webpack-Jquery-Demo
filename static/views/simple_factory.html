@@ -1,0 +1,45 @@
+<h3>简单工厂模式</h3>
+
+<div class="row margin-t-20">
+  <div class="col-md-12">
+    <h5>使用对象的简单工厂</h5>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary" id="object_alert">Alert</button>
+        <button type="button" class="btn btn-success" id="object_prompt">Prompt</button>
+        <button type="button" class="btn btn-warning" id="object_confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row margin-t-20">
+  <div class="col-md-12">
+    <h5>使用类的简单工厂</h5>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary" id="class_alert">Alert</button>
+        <button type="button" class="btn btn-success" id="class_prompt">Prompt</button>
+        <button type="button" class="btn btn-warning" id="class_confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="model" id="model">
+  <div class="model-content">
+    <div class="context-wapper" name="context"></div>
+    <div class="btn-wapper" name="btn_wapper">
+      <button type="button" 
+        class="btn btn-warning cancel"
+        name="cancel">
+        取消
+      </button>
+      <button type="button" 
+        class="btn btn-primary sure"
+        name="sure">
+        确定
+      </button>
+    </div>
+  </div>
+</div>
