@@ -30,4 +30,12 @@ export class RoutesController {
       mainMenu: 'abstract_factory'
     });
   }
+
+  @Get('/builder_factory')
+  builderFactory(@Res() res) {
+    res.render('./builder_factory.html', {
+      title: '建造者模式',
+      mainMenu: 'builder_factory'
+    });
+  }
 }

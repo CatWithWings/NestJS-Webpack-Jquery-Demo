@@ -31,6 +31,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'abstract_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '建造者模式',
+      filename: '../views/builder_factory.html',
+      template: 'static/views/builder_factory.html',
+      chunks: [ 'base', 'builder_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 
