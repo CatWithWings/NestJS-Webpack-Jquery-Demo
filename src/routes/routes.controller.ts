@@ -22,4 +22,12 @@ export class RoutesController {
       mainMenu: 'simple_factory'
     });
   }
+
+  @Get('/abstract_factory')
+  abstractFactory(@Res() res) {
+    res.render('./abstract_factory.html', {
+      title: '抽象工厂模式',
+      mainMenu: 'abstract_factory'
+    });
+  }
 }

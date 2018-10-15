@@ -22,7 +22,15 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       template: 'static/views/simple_factory.html',
       chunks: [ 'base', 'simple_factory.main'],
       chunksSortMode: 'manual'
-    })
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '抽象工厂模式',
+      filename: '../views/abstract_factory.html',
+      template: 'static/views/abstract_factory.html',
+      chunks: [ 'base', 'abstract_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

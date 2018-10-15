@@ -27,6 +27,36 @@
 ## preview page
   localhost:3000
 
+
+## mySQL数据库
+  - port: 3306
+  - username: root
+  -password: 
+  - 连接名: my_first_nest
+  - 数据库名: preview_sale
++-------------+--------------+----------------------------+
+|                     customer                            |
++-------------+---------------+---------------------------+
+| id          | int           | PRIMARY KEY AUTO_INCREMENT|
+| name        | varchar(100)  |                           |
+| tel         | varchar(50)   |                           |
+| company     | varchar(100)  |                           |
+| views       | int           |                           |
+| isPublished | tinyin        |                           |
++-------------+---------------+--------------------------+
+
+
+## mongoDB
+  - 数据库名: nest_test
++-------------+--------------+----------------------------+
+|                       foods                             |
++-----------------+---------------------+-----------------+
+| id              |       Number        |                 |
+| cnName          |       String        |                 |
+| enName          |       String        |                 |
+| mainPic         |       String        |                 |
++-----------------+---------------------+-----------------+
+
 ## PS
 
 ```
