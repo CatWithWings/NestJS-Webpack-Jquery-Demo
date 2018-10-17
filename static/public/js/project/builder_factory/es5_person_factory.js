@@ -44,9 +44,9 @@ Human.prototype = {
 
 function Name(name) {
   if (name === undefined) throw new Error('Name should be required')
-  this.name = name;
+  if (name.indexOf(' ') <= -1) throw new Error('Please input fullName')
 
-  if (this.name.indexOf(' ') <= -1) throw new Error('Please input fullName')
+  this.name = name;
 
   if (this.name.indexOf(' ') > -1) {
     this.firstName = this.name.slice(0, this.name.indexOf(' '))

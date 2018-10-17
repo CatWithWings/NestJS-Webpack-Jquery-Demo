@@ -1,9 +1,12 @@
 import {
   Get,
   Post,
+  Options,
+  Head,
   Body,
   Controller,
   Req,
+  Res,
   UseFilters,
   UseInterceptors,
   UseGuards,
@@ -52,6 +55,20 @@ export class CustomerController {
       data: [],
       statusCode: HttpStatus.OK,
     };
+  }
+
+  @HttpCode(200)
+  @Options('/options')
+  @UseGuards(JwtAuthGuard)
+  async optionCustomer(@Req() request) {
+    return {};
+  }
+
+  @HttpCode(200)
+  @Head('/head')
+  @UseGuards(JwtAuthGuard)
+  async headCustomer(@Req() request, @Res() result) {
+    return {};
   }
 
   @HttpCode(200)

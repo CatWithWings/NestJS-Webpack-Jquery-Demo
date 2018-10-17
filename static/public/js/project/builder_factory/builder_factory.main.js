@@ -1,6 +1,10 @@
+// import {
+//   Person
+// } from './es5_person_factory';
+
 import {
   Person
-} from './es5_person_factory';
+} from './es6_person_factory';
 
 class BuilderFactoryApp {
 
