@@ -38,4 +38,20 @@ export class RoutesController {
       mainMenu: 'builder_factory'
     });
   }
+
+  @Get('/adapter_factory')
+  adapterFactory(@Res() res) {
+    res.render('./adapter_factory.html', {
+      title: '适配器模式',
+      mainMenu: 'adapter_factory'
+    });
+  }
+
+  @Get('/decorator_factory')
+  decoratorFactory(@Res() res) {
+    res.render('./decorator_factory.html', {
+      title: '装饰者模式',
+      mainMenu: 'decorator_factory'
+    });
+  }
 }

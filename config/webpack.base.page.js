@@ -39,6 +39,22 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'builder_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '适配器模式',
+      filename: '../views/adapter_factory.html',
+      template: 'static/views/adapter_factory.html',
+      chunks: [ 'base', 'adapter_factory.main'],
+      chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '装饰者模式',
+      filename: '../views/decorator_factory.html',
+      template: 'static/views/decorator_factory.html',
+      chunks: [ 'base', 'decorator_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

@@ -21,8 +21,12 @@ class IndexApp {
         "isPublished": 0
       }),
       dataType: "json",
-      success: function(data){
+      success: function(data,){
         console.log('index', data)
+      },
+      complete: (XMLHttpRequest, textStatus) => {
+        // 获取某个响应报头
+        console.log(XMLHttpRequest.getResponseHeader('Connection'))
       }
     });
   }
