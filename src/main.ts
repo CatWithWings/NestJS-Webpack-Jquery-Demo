@@ -32,6 +32,6 @@ async function bootstrap() {
 
   // 全局中间件
   app.use(GlobalMiddleware);
-  await app.listen(3000);
+  await app.listen(4005);
 }
 bootstrap();

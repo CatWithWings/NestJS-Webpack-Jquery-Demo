@@ -55,6 +55,22 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'decorator_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '桥接模式',
+      filename: '../views/bridge_factory.html',
+      template: 'static/views/bridge_factory.html',
+      chunks: [ 'base', 'bridge_factory.main'],
+      chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '组合模式',
+      filename: '../views/group_factory.html',
+      template: 'static/views/group_factory.html',
+      chunks: [ 'base', 'group_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

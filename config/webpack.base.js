@@ -34,7 +34,8 @@ module.exports = {
     alias: {
       '@STYLE_SHEETS': helpers.root('static/public/sass'),
       '@JS_LIB': helpers.root('static/public/js/lib'),
-      '@JS_SHARE': helpers.root('static/public/js/share')
+      '@JS_SHARE': helpers.root('static/public/js/share'),
+      '@IMAGES': helpers.root('static/public/images')
     },
     enforceExtension: false
   },

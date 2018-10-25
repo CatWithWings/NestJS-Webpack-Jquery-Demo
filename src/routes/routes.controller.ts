@@ -54,4 +54,20 @@ export class RoutesController {
       mainMenu: 'decorator_factory'
     });
   }
+
+  @Get('/bridge_factory')
+  bridgeFactory(@Res() res) {
+    res.render('./bridge_factory.html', {
+      title: '桥接模式',
+      mainMenu: 'bridge_factory'
+    });
+  }
+
+  @Get('/group_factory')
+  groupFactory(@Res() res) {
+    res.render('./group_factory.html', {
+      title: '组合模式',
+      mainMenu: 'group_factory'
+    });
+  }
 }
