@@ -32,7 +32,7 @@
 ```
   - port: 3306
   - username: root
-  -password: 
+  - password: 
   - 连接名: my_first_nest
   - 数据库名: preview_sale
 +-------------+--------------+----------------------------+
