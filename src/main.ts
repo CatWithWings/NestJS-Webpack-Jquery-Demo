@@ -32,6 +32,8 @@ async function bootstrap() {
 
   // 全局中间件
   app.use(GlobalMiddleware);
-  await app.listen(4005);
+  await app.listen(4005, () => {
+    console.log('Server is running at port 4005');
+  });
 }
 bootstrap();

@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { RoutesModule } from './routes/routes.module';
 import { GolbalModule } from './global/global.module';
+import { NewsModule } from './news/news.module';
 import { CustomerModule } from './customer/customer.modules';
 
 import { RouterMiddleware } from './share/middleware/root.middleware';
@@ -23,6 +24,7 @@ import { RouterMiddleware } from './share/middleware/root.middleware';
     RoutesModule,
     CustomerModule,
     GolbalModule,
+    NewsModule,
   ],
   controllers: [AppController],
   providers: [

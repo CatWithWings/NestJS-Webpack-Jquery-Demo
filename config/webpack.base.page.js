@@ -71,6 +71,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'group_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '享元模式',
+      filename: '../views/share_factory.html',
+      template: 'static/views/share_factory.html',
+      chunks: [ 'base', 'share_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

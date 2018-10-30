@@ -70,4 +70,12 @@ export class RoutesController {
       mainMenu: 'group_factory'
     });
   }
+
+  @Get('/share_factory')
+  shareFactory(@Res() res) {
+    res.render('./share_factory.html', {
+      title: '享元模式',
+      mainMenu: 'share_factory'
+    });
+  }
 }
