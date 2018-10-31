@@ -78,4 +78,20 @@ export class RoutesController {
       mainMenu: 'share_factory'
     });
   }
+
+  @Get('/template_factory')
+  templateFactory(@Res() res) {
+    res.render('./template_factory.html', {
+      title: '模板方法模式',
+      mainMenu: 'template_factory'
+    });
+  }
+
+  @Get('/observers_factory')
+  observersFactory(@Res() res) {
+    res.render('./observers_factory.html', {
+      title: '观察者模式',
+      mainMenu: 'observers_factory'
+    });
+  }
 }

@@ -79,6 +79,22 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'share_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '模板方法模式',
+      filename: '../views/template_factory.html',
+      template: 'static/views/template_factory.html',
+      chunks: [ 'base', 'template_factory.main'],
+      chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '观察者模式',
+      filename: '../views/observers_factory.html',
+      template: 'static/views/observers_factory.html',
+      chunks: [ 'base', 'observers_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 
