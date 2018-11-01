@@ -29,12 +29,17 @@ export default class StarsObserver {
     } else {
       this.message[type].push(fn)
     }
+
+    return this;
   }
 
   /**
    * 发布信息接口
+   * @param {String} 类型句柄
+   * @param {Any} 传入行为方法的参数
+   * @param ?{Func} 行为方法
    */
-  fire(type, args) {
+  fire(type, args, fn) {
     if (!this.message[type]) return;
 
     const events = {
@@ -42,9 +47,20 @@ export default class StarsObserver {
       args: args || [] // 消息携带数据
     };
 
-    for (let i = 0, len = this.message[type].length; i < len; i++) {
-      this.message[type][i].call(this, events);
+    if (fn === undefined) { // 不传fn执行该类型下全部事件
+      for (let i = 0, len = this.message[type].length; i < len; i++) {
+        this.message[type][i].call(this, events);
+      }
+    } else { // 传入fn只触发某一事件
+      const fnItem = this.message[type].find((fnItem) => fnItem === fn);
+      if (fnItem !== undefined) {
+        fnItem.call(this, events);
+      } else {
+        console.warn('该方法已被移除或不在注册列表中!!');
+      }
     }
+    
+    return this;
   }
 
   /**
@@ -53,9 +69,11 @@ export default class StarsObserver {
   remove(type, fn) {
     if (this.message[type] !== undefined) {
       let i= this.message[type].length - 1;
-      for(; i >= 0; i--) {
+      for(i; i >= 0; i--) {
         this.message[type][i] === fn && this.message[type].splice(i, 1);
       }
-    } 
+    }
+
+    return this;
   }
 }
