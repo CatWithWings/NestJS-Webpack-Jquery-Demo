@@ -95,6 +95,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'observers_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '状态模式',
+      filename: '../views/state_factory.html',
+      template: 'static/views/state_factory.html',
+      chunks: [ 'base', 'state_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

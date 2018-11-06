@@ -94,4 +94,12 @@ export class RoutesController {
       mainMenu: 'observers_factory'
     });
   }
+
+  @Get('/state_factory')
+  stateFactory(@Res() res) {
+    res.render('./state_factory.html', {
+      title: '状态模式',
+      mainMenu: 'state_factory'
+    });
+  }
 }

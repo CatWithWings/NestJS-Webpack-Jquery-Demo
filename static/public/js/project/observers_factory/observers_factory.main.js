@@ -12,10 +12,12 @@ class ObserversFactoryApp {
     };
 
     this.shanghaiCb = (e) => {
+      console.log('shanghaiCb -->', this)
       $('#shanghai_area').html(e.args.text);
     };
 
     this.guangzhouCb = (e) => {
+      console.log('guangzhouCb -->', this)
       $('#guangzhou_area').html(e.args.text);
     };
     this.init();
