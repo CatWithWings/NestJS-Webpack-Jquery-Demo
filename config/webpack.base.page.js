@@ -103,6 +103,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'state_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '策略模式',
+      filename: '../views/strategy_factory.html',
+      template: 'static/views/strategy_factory.html',
+      chunks: [ 'base', 'strategy_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

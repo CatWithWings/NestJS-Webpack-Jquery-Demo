@@ -1,20 +1,7 @@
 import { Get, Controller, Req, Res, Next } from '@nestjs/common';
 
-@Controller()
-export class RoutesController {
-  @Get('/')
-  defaultRoot(@Res() res) {
-    res.redirect('/index');
-  }
-
-  @Get('/index')
-  index(@Res() res) {
-    res.render('./index.html', {
-      title: '首页',
-      mainMenu: 'home'
-    });
-  }
-
+@Controller('/pattern')
+export class RoutesPatternController {
   @Get('/simple_factory')
   simpleFactory(@Res() res) {
     res.render('./simple_factory.html', {
@@ -100,6 +87,14 @@ export class RoutesController {
     res.render('./state_factory.html', {
       title: '状态模式',
       mainMenu: 'state_factory'
+    });
+  }
+
+  @Get('/strategy_factory')
+  strategyFactory(@Res() res) {
+    res.render('./strategy_factory.html', {
+      title: '策略模式',
+      mainMenu: 'strategy_factory'
     });
   }
 }

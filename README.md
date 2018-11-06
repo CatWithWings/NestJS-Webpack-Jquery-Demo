@@ -82,6 +82,7 @@
 
 ## Support
  [Nest](https://github.com/nestjs/nest)
+ [设计模式](《JavaScript设计模式 张容铭》)
 
 ## Stay in touch
 
