@@ -108,27 +108,65 @@
       color: #314659;
       text-decoration: none;
 
+      &.sub-menu-title {
+        box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        color: #314659;
+
+        &:hover {
+          color: #1890ff;
+        }
+      }
+
       &:hover {
         color: #1890ff;
       }
-    }
 
-    &.active {
-      a {
+      &.active {
         background-color: #e6f7ff;
         color: #1890ff;
-      }
 
-      &:after {
-        content: "";
-        width: 3px;
-        height: 40px;
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: #1890ff;
+        &:after {
+          content: "";
+          width: 3px;
+          height: 40px;
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-color: #1890ff;
+        }
+      }
+    }
+
+    ul[name="sub_menu"] {
+      background: #f8f8f8;
+      margin: 5px 0;
+      display: none;
+
+      &>li {
+        width: 100%;
+        clear: both;
+
+        &>a {
+          display: block;
+          padding: 0 30px 0 30px;
+          height: 32px;
+          line-height: 32px;
+          color: #5c6266;
+          text-decoration: none;
+
+          &:hover {
+            background-color: #e6f7ff;
+            color: #1890ff;
+          }
+
+          &.active {
+            background-color: #e6f7ff;
+            color: #1890ff;
+          }
+        }
       }
     }
   }

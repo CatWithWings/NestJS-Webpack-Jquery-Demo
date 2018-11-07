@@ -9,7 +9,7 @@ class BaseApp {
   }
 
   getActiveNav() {
-    const $mainNavItem = $('#main_nav > li');
+    const $mainNavItem = $('#main_nav li');
 
     $mainNavItem.each((index, element) => {
       const $item = $(element);
@@ -17,12 +17,24 @@ class BaseApp {
       const key = $item.data('key');
 
       if (currentMenu === key) {
-        $item.addClass('active').siblings('li').removeClass('active');
+        const $title = $item.children('a');
+
+        $title.addClass('active')
+          .siblings('li').children('a').removeClass('active');
+        $title.siblings('ul[name="sub_menu"]').show();
       }
     })
   }
 
-  bindEvents() {}
+  toggleMenu(e) {
+    console.log(e)
+    const $subMenu = $(e.target).closest('a');
+    $subMenu.siblings('[name="sub_menu"]').slideToggle();
+  }
+
+  bindEvents() {
+    $('#main_nav').on('click', '[name="toggle_menu"] > a', this.toggleMenu.bind(this))
+  }
 }
 
 const BaseTasks = new BaseApp();

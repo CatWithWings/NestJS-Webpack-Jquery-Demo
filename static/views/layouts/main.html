@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{{title}}}</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
 </head>
 
 <body>
@@ -21,41 +22,49 @@
           <li data-current="{{{mainMenu}}}" data-key="home">
             <a href="/">首页</a>
           </li>
-          <li data-current="{{{mainMenu}}}" data-key="simple_factory">
-            <a href="/pattern/simple_factory">简单工厂模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="abstract_factory">
-            <a href="/pattern/abstract_factory">抽象工厂模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="builder_factory">
-            <a href="/pattern/builder_factory">建造者模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="adapter_factory">
-            <a href="/pattern/adapter_factory">适配器模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="decorator_factory">
-            <a href="/pattern/decorator_factory">装饰者模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="bridge_factory">
-            <a href="/pattern/bridge_factory">桥接模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="group_factory">
-            <a href="/pattern/group_factory">组合模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="share_factory">
-            <a href="/pattern/share_factory">享元模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="template_factory">
-            <a href="/pattern/template_factory">模板方法模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="observers_factory">
-            <a href="/pattern/observers_factory">观察者模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="state_factory">
-            <a href="/pattern/state_factory">状态模式</a>
-          </li>
-          <li data-current="{{{mainMenu}}}" data-key="strategy_factory">
-            <a href="/pattern/strategy_factory">策略模式</a>
+          <li 
+            name="toggle_menu" 
+            data-current="{{{toggleMenu}}}" 
+            data-key="pattern">
+            <a class="sub-menu-title">设计模式</a>
+            <ul name="sub_menu">
+              <li data-current="{{{mainMenu}}}" data-key="simple_factory">
+                <a href="/pattern/simple_factory">简单工厂模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="abstract_factory">
+                <a href="/pattern/abstract_factory">抽象工厂模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="builder_factory">
+                <a href="/pattern/builder_factory">建造者模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="adapter_factory">
+                <a href="/pattern/adapter_factory">适配器模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="decorator_factory">
+                <a href="/pattern/decorator_factory">装饰者模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="bridge_factory">
+                <a href="/pattern/bridge_factory">桥接模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="group_factory">
+                <a href="/pattern/group_factory">组合模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="share_factory">
+                <a href="/pattern/share_factory">享元模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="template_factory">
+                <a href="/pattern/template_factory">模板方法模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="observers_factory">
+                <a href="/pattern/observers_factory">观察者模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="state_factory">
+                <a href="/pattern/state_factory">状态模式</a>
+              </li>
+              <li data-current="{{{mainMenu}}}" data-key="strategy_factory">
+                <a href="/pattern/strategy_factory">策略模式</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

@@ -6,7 +6,8 @@ export class RoutesPatternController {
   simpleFactory(@Res() res) {
     res.render('./simple_factory.html', {
       title: '简单工厂模式',
-      mainMenu: 'simple_factory'
+      mainMenu: 'simple_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -14,7 +15,8 @@ export class RoutesPatternController {
   abstractFactory(@Res() res) {
     res.render('./abstract_factory.html', {
       title: '抽象工厂模式',
-      mainMenu: 'abstract_factory'
+      mainMenu: 'abstract_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -22,7 +24,8 @@ export class RoutesPatternController {
   builderFactory(@Res() res) {
     res.render('./builder_factory.html', {
       title: '建造者模式',
-      mainMenu: 'builder_factory'
+      mainMenu: 'builder_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -30,7 +33,8 @@ export class RoutesPatternController {
   adapterFactory(@Res() res) {
     res.render('./adapter_factory.html', {
       title: '适配器模式',
-      mainMenu: 'adapter_factory'
+      mainMenu: 'adapter_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -38,7 +42,8 @@ export class RoutesPatternController {
   decoratorFactory(@Res() res) {
     res.render('./decorator_factory.html', {
       title: '装饰者模式',
-      mainMenu: 'decorator_factory'
+      mainMenu: 'decorator_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -46,7 +51,8 @@ export class RoutesPatternController {
   bridgeFactory(@Res() res) {
     res.render('./bridge_factory.html', {
       title: '桥接模式',
-      mainMenu: 'bridge_factory'
+      mainMenu: 'bridge_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -54,7 +60,8 @@ export class RoutesPatternController {
   groupFactory(@Res() res) {
     res.render('./group_factory.html', {
       title: '组合模式',
-      mainMenu: 'group_factory'
+      mainMenu: 'group_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -62,7 +69,8 @@ export class RoutesPatternController {
   shareFactory(@Res() res) {
     res.render('./share_factory.html', {
       title: '享元模式',
-      mainMenu: 'share_factory'
+      mainMenu: 'share_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -70,7 +78,8 @@ export class RoutesPatternController {
   templateFactory(@Res() res) {
     res.render('./template_factory.html', {
       title: '模板方法模式',
-      mainMenu: 'template_factory'
+      mainMenu: 'template_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -78,7 +87,8 @@ export class RoutesPatternController {
   observersFactory(@Res() res) {
     res.render('./observers_factory.html', {
       title: '观察者模式',
-      mainMenu: 'observers_factory'
+      mainMenu: 'observers_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -86,7 +96,8 @@ export class RoutesPatternController {
   stateFactory(@Res() res) {
     res.render('./state_factory.html', {
       title: '状态模式',
-      mainMenu: 'state_factory'
+      mainMenu: 'state_factory',
+      toggleMenu: 'pattern'
     });
   }
 
@@ -94,7 +105,8 @@ export class RoutesPatternController {
   strategyFactory(@Res() res) {
     res.render('./strategy_factory.html', {
       title: '策略模式',
-      mainMenu: 'strategy_factory'
+      mainMenu: 'strategy_factory',
+      toggleMenu: 'pattern'
     });
   }
 }
