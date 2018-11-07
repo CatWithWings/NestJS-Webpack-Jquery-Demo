@@ -111,6 +111,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'strategy_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '责任链模式',
+      filename: '../views/response_chain_factory.html',
+      template: 'static/views/response_chain_factory.html',
+      chunks: [ 'base', 'response_chain_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

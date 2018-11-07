@@ -1,3 +1,5 @@
+let _result = '';
+
 class MoneyStack {
   constructor(billSize) {
     this.billSize = billSize;
@@ -24,13 +26,17 @@ class MoneyStack {
   }
 
   printMoney(numBills) {
-    console.log(`BillSize ${this.billSize}: ${numBills}`);
+    _result += `面值：${this.billSize} - 张数：${numBills}; <br>`;
+    // console.log(`BillSize ${this.billSize}: ${numBills}`);
   }
 }
 
 // 提供 100 / 50 / 20 / 10 / 5 / 1
 class ATM {
   constructor() {
+    // 重置结果
+    _result = '';
+
     // 实例化各面值
     const stack100 = new MoneyStack(100);
     const stack50 = new MoneyStack(50);
@@ -52,6 +58,8 @@ class ATM {
 
   withDraw(amount) {
     this.moneyStacks.withDraw(amount);
+    return _result;
+    
   }
 }
 

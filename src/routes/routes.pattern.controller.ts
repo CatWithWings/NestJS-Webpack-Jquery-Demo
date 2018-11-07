@@ -109,4 +109,13 @@ export class RoutesPatternController {
       toggleMenu: 'pattern'
     });
   }
+
+  @Get('/response_chain_factory')
+  responseChainFactory(@Res() res) {
+    res.render('./response_chain_factory.html', {
+      title: '责任链模式',
+      mainMenu: 'response_chain_factory',
+      toggleMenu: 'pattern'
+    });
+  }
 }

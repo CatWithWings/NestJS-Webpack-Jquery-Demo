@@ -65,6 +65,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-plugin-transform-remove-debugger": "^6.9.4",
     "babel-preset-minify": "^0.4.3",
+    "clean-webpack-plugin": "^0.1.19",
     "concurrently": "3.1.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",

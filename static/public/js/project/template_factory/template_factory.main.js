@@ -19,4 +19,3 @@ class TemplateFactoryApp {
 }
 
 const TemplateFactory = new TemplateFactoryApp();
-
