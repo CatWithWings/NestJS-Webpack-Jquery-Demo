@@ -141,9 +141,9 @@
 
     ul[name="sub_menu"] {
       background: #f8f8f8;
-      // margin: 5px 0;
       display: none;
       box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2) inset;
+      padding: 5px 0;
 
       &>li {
         width: 100%;

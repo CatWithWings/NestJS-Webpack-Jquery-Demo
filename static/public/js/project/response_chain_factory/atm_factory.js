@@ -38,6 +38,7 @@ class ATM {
     _result = '';
 
     // 实例化各面值
+    // 所有的请求接收者候选人
     const stack100 = new MoneyStack(100);
     const stack50 = new MoneyStack(50);
     const stack20 = new MoneyStack(20);
@@ -45,7 +46,7 @@ class ATM {
     const stack5 = new MoneyStack(5);
     const stack1 = new MoneyStack(1);
 
-    // 设置链层次结构
+    // 设置链层次结构，即接收者如何组成链
     stack100.setNextStack(stack50);
     stack50.setNextStack(stack20);
     stack20.setNextStack(stack10);

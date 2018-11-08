@@ -119,6 +119,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'response_chain_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '命令模式',
+      filename: '../views/command_factory.html',
+      template: 'static/views/command_factory.html',
+      chunks: [ 'base', 'command_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

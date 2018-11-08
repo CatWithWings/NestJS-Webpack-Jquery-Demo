@@ -118,4 +118,13 @@ export class RoutesPatternController {
       toggleMenu: 'pattern'
     });
   }
+
+  @Get('/command_factory')
+  commandFactory(@Res() res) {
+    res.render('./command_factory.html', {
+      title: '命令模式',
+      mainMenu: 'command_factory',
+      toggleMenu: 'pattern'
+    });
+  }
 }
