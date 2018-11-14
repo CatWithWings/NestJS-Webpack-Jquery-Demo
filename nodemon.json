@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
-  "exec": "rimraf dist/server && tsc && cross-env NODE_ENV=development node dist/server/main.js"
+  "exec": "rimraf dist/server && tsc && cross-env NODE_ENV=development node --trace_gc dist/server/main.js"
 }

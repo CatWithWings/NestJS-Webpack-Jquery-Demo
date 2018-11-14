@@ -127,4 +127,13 @@ export class RoutesPatternController {
       toggleMenu: 'pattern'
     });
   }
+
+  @Get('/intermediary_factory')
+  intermediaryFactory(@Res() res) {
+    res.render('./intermediary_factory.html', {
+      title: '中介模式',
+      mainMenu: 'intermediary_factory',
+      toggleMenu: 'pattern'
+    });
+  }
 }

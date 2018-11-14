@@ -127,6 +127,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'command_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '中介模式',
+      filename: '../views/intermediary_factory.html',
+      template: 'static/views/intermediary_factory.html',
+      chunks: [ 'base', 'intermediary_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

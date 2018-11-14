@@ -1,0 +1,23 @@
+.stock-list {
+  border: 1px solid orange;
+  padding: 10px;
+
+  & > ul > li {
+    list-style: none;
+    line-height: 28px;
+  }
+
+  &.current {
+    border: 1px solid #069dd5;
+  }
+}
+
+.lend-list {
+  border: 1px solid pink;
+  padding: 10px;
+
+  ul > li {
+    list-style: none;
+    line-height: 28px;
+  }
+}
