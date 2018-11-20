@@ -58,6 +58,14 @@ class IntermediaryFactoryApp {
     $(`#${containerId}`).html(dom);
   }
 
+  showBackist(containerId, data) {
+    const dom = data.map((item) => {
+      return `<li>《${item.book}》 ${item.num}本</li>`;
+    }).join('');
+
+    $(`#${containerId}`).html(dom);
+  }
+
   lendBook(name, books) {
     this[name.toLowerCase()].lend(books);
     this.showLendist('lend_list', BookManger.viewLendList());
@@ -86,14 +94,15 @@ class IntermediaryFactoryApp {
     });
 
     $('#peter_back').on('click', () => {
-      this.backBook(
-        'Peter',
-        [
-          {
-            book: '哈利波特与魔法石',
-            num: 2
-          }
-        ]);
+      const data = [
+        {
+          book: '哈利波特与魔法石',
+          num: 2
+        }
+      ];
+
+      this.backBook('Peter', data);
+      this.showBackist('peter_back_list', data);
     });
 
     $('#mary').on('click', () => {
@@ -111,18 +120,19 @@ class IntermediaryFactoryApp {
     });
 
     $('#mary_back').on('click', () => {
-      this.backBook(
-        'Mary',
-        [
-          {
-            book: '深入浅出NodeJS',
-            num: 1
-          },
-          {
-            book: '神雕侠侣',
-            num: 1
-          }
-        ]);
+      const data = [
+        {
+          book: '深入浅出NodeJS',
+          num: 1
+        },
+        {
+          book: '神雕侠侣',
+          num: 1
+        }
+      ];
+
+      this.backBook('Mary', data);
+      this.showBackist('mary_back_list', data);
     });
   }
 }

@@ -12,6 +12,20 @@
   }
 }
 
+.back-list {
+  border: 1px solid green;
+  padding: 10px;
+
+  & > ul > li {
+    list-style: none;
+    line-height: 28px;
+  }
+
+  &:last-child {
+    border-left: 0px;
+  }
+}
+
 .lend-list {
   border: 1px solid pink;
   padding: 10px;
