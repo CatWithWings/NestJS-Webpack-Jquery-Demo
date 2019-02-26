@@ -66,7 +66,7 @@
  - tsc 用于打包服务端代码
  - webpack 用于打包前端静态文件及页面模板
  - 所有前端文件都在static文件下
- - 每个页面对应的js文件必须放在 static/public/js/product/[pageFileName]/
+ - 每个页面对应的js文件必须放在 static/public/js/product/?[toggleTye]/[pageFileName]/
  - webpack 采用多入口配置，页面所用的主入口必须以[pageFileName].main.js命名
  - config/webpack.base.page 中每个页面要引入的入口文件在chunks属性中配置
 ```
@@ -83,6 +83,7 @@
 ## Support
  [Nest](https://github.com/nestjs/nest)
  [设计模式](《JavaScript设计模式 张容铭》)
+ [数据结构与算法](《学习JavaScript数据结构与算法 (第二版)》)
 
 ## Stay in touch
 
