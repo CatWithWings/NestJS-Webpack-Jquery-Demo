@@ -186,7 +186,7 @@ module.exports = {
           priority: -10
         }
       },
-      minChunks: 1
+      minChunks: 1 // 至少被多少个chunk引用
     }
   },
 

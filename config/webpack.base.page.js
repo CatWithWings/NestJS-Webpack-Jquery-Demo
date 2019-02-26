@@ -135,6 +135,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'intermediary_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '解释器模式',
+      filename: '../views/interpreter_factory.html',
+      template: 'static/views/interpreter_factory.html',
+      chunks: [ 'base', 'interpreter_factory.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

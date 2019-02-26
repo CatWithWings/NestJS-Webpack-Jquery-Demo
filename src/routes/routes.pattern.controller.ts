@@ -136,4 +136,13 @@ export class RoutesPatternController {
       toggleMenu: 'pattern'
     });
   }
+
+  @Get('/interpreter_factory')
+  interpreterFactory(@Res() res) {
+    res.render('./interpreter_factory.html', {
+      title: '解释器模式',
+      mainMenu: 'interpreter_factory',
+      toggleMenu: 'pattern'
+    });
+  }
 }
