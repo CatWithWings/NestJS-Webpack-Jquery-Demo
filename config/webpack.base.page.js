@@ -143,6 +143,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       chunks: [ 'base', 'interpreter_factory.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-数组',
+      filename: '../views/arithmetic/array.html',
+      template: 'static/views/arithmetic/array.html',
+      chunks: [ 'base', 'array.main'],
+      chunksSortMode: 'manual'
+    }),
   ];
 }
 

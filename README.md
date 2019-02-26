@@ -25,7 +25,7 @@
 ```
 
 ## preview page
-  localhost:3000
+  localhost:4005
 
 
 ## mySQL数据库
