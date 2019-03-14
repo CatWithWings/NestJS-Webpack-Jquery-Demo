@@ -145,12 +145,20 @@ function webpackPageConfig(HtmlWebpackPlugin) {
     }),
 
     new HtmlWebpackPlugin({
-      title: '算法-数组',
+      title: '算法-数组/栈',
       filename: '../views/arithmetic/array.html',
       template: 'static/views/arithmetic/array.html',
       chunks: [ 'base', 'array.main'],
       chunksSortMode: 'manual'
     }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-队列',
+      filename: '../views/arithmetic/queue.html',
+      template: 'static/views/arithmetic/queue.html',
+      chunks: [ 'base', 'queue.main'],
+      chunksSortMode: 'manual'
+    })
   ];
 }
 

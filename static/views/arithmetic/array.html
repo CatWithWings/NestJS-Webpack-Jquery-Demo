@@ -1,3 +1,66 @@
-<div>
-  数组
+<h3>数组/栈</h3>
+<div class="row margin-t-20">
+  <div class="col-md-12">
+    <form>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="num">斐波那契数index值</label>
+          <input type="text" class="form-control" id="num" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="result">结果：</label>
+          <div id="result"></div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" id="submit">
+        Get Result
+      </button>
+    </form>
+  </div>
+</div>
+
+<h3 class="margin-t-36">栈（特殊的数组）</h3>
+<h5>后进先出原则</h5>
+<div class="row margin-t-20">
+  <div class="col-md-12">
+    <form>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="num">推入栈数值</label>
+          <input type="text" class="form-control" id="stack" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="stackResult">结果：</label>
+          <div id="stackResult"></div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" id="pushStack">
+        入栈
+      </button>
+      <button type="button" class="btn btn-primary" id="popStack">
+        出栈
+      </button>
+      <button type="button" class="btn btn-primary" id="getPeek">
+        获取栈顶
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="row margin-t-20">
+  <h5>十进制转二进制实例</h5>
+  <div class="col-md-12">
+    <form>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <span>(172)10</span>
+          = (<span id="binary">0</span>)2
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

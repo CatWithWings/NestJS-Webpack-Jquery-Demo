@@ -3,10 +3,19 @@ import { Get, Controller, Req, Res, Next } from '@nestjs/common';
 @Controller('/arithmetic')
 export class RoutesArithmeticController {
   @Get('/array')
-  simpleFactory(@Res() res) {
+  array(@Res() res) {
     res.render('./arithmetic/array.html', {
-      title: '数组',
+      title: '数组/栈',
       mainMenu: 'array',
+      toggleMenu: 'arithmetic'
+    });
+  }
+
+  @Get('/queue')
+  queue(@Res() res) {
+    res.render('./arithmetic/queue.html', {
+      title: '队列',
+      mainMenu: 'queue',
       toggleMenu: 'arithmetic'
     });
   }

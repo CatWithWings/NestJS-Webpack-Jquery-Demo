@@ -1,0 +1,5 @@
+class Commons {
+  static quickSort() {
+    
+  }
+}
