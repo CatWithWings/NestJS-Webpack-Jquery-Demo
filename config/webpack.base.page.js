@@ -158,6 +158,14 @@ function webpackPageConfig(HtmlWebpackPlugin) {
       template: 'static/views/arithmetic/queue.html',
       chunks: [ 'base', 'queue.main'],
       chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-链表',
+      filename: '../views/arithmetic/linkList.html',
+      template: 'static/views/arithmetic/linkList.html',
+      chunks: [ 'base', 'linkList.main'],
+      chunksSortMode: 'manual'
     })
   ];
 }

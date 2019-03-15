@@ -19,4 +19,13 @@ export class RoutesArithmeticController {
       toggleMenu: 'arithmetic'
     });
   }
+
+  @Get('/linkList')
+  linkList(@Res() res) {
+    res.render('./arithmetic/linkList.html', {
+      title: '链表',
+      mainMenu: 'linkList',
+      toggleMenu: 'arithmetic'
+    });
+  }
 }
