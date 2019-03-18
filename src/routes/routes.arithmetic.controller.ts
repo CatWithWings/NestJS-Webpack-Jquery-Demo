@@ -28,4 +28,13 @@ export class RoutesArithmeticController {
       toggleMenu: 'arithmetic'
     });
   }
+
+  @Get('/set')
+  set(@Res() res) {
+    res.render('./arithmetic/set.html', {
+      title: '集合',
+      mainMenu: 'set',
+      toggleMenu: 'arithmetic'
+    });
+  }
 }
