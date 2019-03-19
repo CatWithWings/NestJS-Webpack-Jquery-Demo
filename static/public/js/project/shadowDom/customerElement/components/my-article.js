@@ -9,11 +9,20 @@ if (!customElements.get('my-article')) {
       }
 
       init() {
+        // shadowRoot.host 称为宿主
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = `
           <style>
             * {
               box-sizing: border-box !important;
+            }
+
+            :host(*) {
+              font-weight: bold;
+            }
+
+            :host-context(.greenTheme) {
+              color: green;
             }
 
             ::slotted(*){
@@ -67,6 +76,27 @@ if (!customElements.get('my-article')) {
               width: 20%;
               list-style: none;
             }
+
+            footer {
+              width: 100%;
+              overflow: hidden;
+              clear: both;
+              padding: 10px 15px;
+              background: var(--footer-bg, #000);
+              text-align: center;
+            }
+
+            #mainFooter::slotted(.footer) {
+              color: #069dd5 !important;
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+
+            #subFooter::slotted(.footer) {
+              color: orange !important;
+              padding: 0 !important;
+              margin: 0 !important;
+            }
           </style>
           <article>
             <header class="header-wapper">
@@ -78,13 +108,18 @@ if (!customElements.get('my-article')) {
             <div class="content">
               <section class="content__main-world">
                 <slot name="content"></slot>
+                <slot>我是默认slot</slot>
               </section>
               <aside class="content__aside">
                 <slot name="aside"></slot>
               </aside>
             </div>
+            <footer>
+              <slot id="mainFooter" name="mainFooter"></slot>
+              <slot id="subFooter" name="subFooter"></slot>
+            </footer>
           </article>
-        `
+        `;
       }
     }
   )
