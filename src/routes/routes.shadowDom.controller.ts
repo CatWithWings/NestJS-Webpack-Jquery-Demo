@@ -19,4 +19,22 @@ export class RoutesShadowDomController {
       toggleMenu: 'shadowDom'
     });
   }
+
+  @Get('/shadowDomEvents')
+  shadowDomEvent(@Res() res) {
+    res.render('./shadowDom/shadowDomEvents.html', {
+      title: '影子节点-事件',
+      mainMenu: 'shadowDomEvents',
+      toggleMenu: 'shadowDom'
+    });
+  }
+
+  @Get('/templeElement')
+  templeElement(@Res() res) {
+    res.render('./shadowDom/templeElement.html', {
+      title: '影子节点-temple',
+      mainMenu: 'templeElement',
+      toggleMenu: 'shadowDom'
+    });
+  }
 }

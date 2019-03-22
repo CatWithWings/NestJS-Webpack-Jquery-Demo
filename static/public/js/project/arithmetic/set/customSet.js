@@ -6,7 +6,7 @@ export default class CustomSet {
   // 添加新项
   add(val) {
     if (!this.items[val]) {
-      this.items.val = val;
+      this.items[val] = val;
     }
     return this;
   }
@@ -35,8 +35,21 @@ export default class CustomSet {
     return Object.keys(this.items).length;
   }
 
+  // 获取set以数组方式返回
+  values() {
+    return Object.keys(this.items);
+  }
+
+  getJson() {
+    return this.items;
+  }
+
   // 返回集合数据
   print() {
+    return this.formatObject(this.items);
+  }
 
+  formatObject(obj) {
+    return `{ ${Object.keys(obj).join(', ')} }`;
   }
 }

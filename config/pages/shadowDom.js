@@ -15,6 +15,22 @@ module.exports = function(HtmlWebpackPlugin) {
       template: 'static/views/shadowDom/customerElement.html',
       chunks: [ 'base', 'customerElement.main'],
       chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '影子节点-Events',
+      filename: '../views/shadowDom/shadowDomEvents.html',
+      template: 'static/views/shadowDom/shadowDomEvents.html',
+      chunks: [ 'base', 'shadowDomEvents.main'],
+      chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '影子节点-Temple',
+      filename: '../views/shadowDom/templeElement.html',
+      template: 'static/views/shadowDom/templeElement.html',
+      chunks: [ 'base', 'templeElement.main'],
+      chunksSortMode: 'manual'
     })
   ]
 }
