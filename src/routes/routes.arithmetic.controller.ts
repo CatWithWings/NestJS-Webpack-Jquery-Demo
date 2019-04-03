@@ -37,4 +37,13 @@ export class RoutesArithmeticController {
       toggleMenu: 'arithmetic'
     });
   }
+
+  @Get('/dictionary')
+  dictionary(@Res() res) {
+    res.render('./arithmetic/dictionary.html', {
+      title: '字典与散列表',
+      mainMenu: 'dictionary',
+      toggleMenu: 'arithmetic'
+    });
+  }
 }

@@ -31,6 +31,14 @@ module.exports = function(HtmlWebpackPlugin) {
       template: 'static/views/arithmetic/set.html',
       chunks: [ 'base', 'set.main'],
       chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-字典与散列表',
+      filename: '../views/arithmetic/dictionary.html',
+      template: 'static/views/arithmetic/dictionary.html',
+      chunks: [ 'base', 'dictionary.main'],
+      chunksSortMode: 'manual'
     })
   ]
 }
