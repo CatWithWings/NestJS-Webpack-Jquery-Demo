@@ -46,4 +46,13 @@ export class RoutesArithmeticController {
       toggleMenu: 'arithmetic'
     });
   }
+
+  @Get('/tree')
+  tree(@Res() res) {
+    res.render('./arithmetic/tree.html', {
+      title: '树',
+      mainMenu: 'tree',
+      toggleMenu: 'arithmetic'
+    });
+  }
 }

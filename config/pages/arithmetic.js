@@ -39,6 +39,14 @@ module.exports = function(HtmlWebpackPlugin) {
       template: 'static/views/arithmetic/dictionary.html',
       chunks: [ 'base', 'dictionary.main'],
       chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-树',
+      filename: '../views/arithmetic/tree.html',
+      template: 'static/views/arithmetic/tree.html',
+      chunks: [ 'base', 'tree.main'],
+      chunksSortMode: 'manual'
     })
   ]
 }
