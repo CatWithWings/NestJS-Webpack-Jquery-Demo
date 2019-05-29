@@ -1,3 +1,5 @@
+import ServerWorkTest from "./server-work";
+
 class IndexApp {
   constructor() {}
 
@@ -77,11 +79,16 @@ class IndexApp {
     });
   }
 
+  testServerWork() {
+    // ServerWorkTest.install();
+  }
+
   bindEvents() {
     $("#test_post").on('click', this.testPost.bind(this));
     $("#test_option").on('click', this.testOption.bind(this));
     $("#test_head").on('click', this.headOption.bind(this));
     $('#test_ask').on('click', this.wwwAuthorization.bind(this));
+    $("#test_sw_btn").on('click', this.testServerWork.bind(this));
   }
 }
 

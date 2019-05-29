@@ -1,10 +1,12 @@
 import BinarySearchTree from './binarySearchTree';
 import AvlTree from './avlTree';
+import RedBlackTree from './redBlackTree';
 
 class TreeApp {
   constructor() {
     this.BST = new BinarySearchTree();
     this.AVL = new AvlTree();
+    this.redBlackTree = new RedBlackTree();
     this.init();
   }
 
@@ -47,10 +49,29 @@ class TreeApp {
     $('#AVL').empty().append(result);
   }
 
+  setRedBlack() {
+    const result = this.redBlackTree.insert(80)
+      .insert(40)
+      .insert(20)
+      .insert(60)
+      .insert(10)
+      .insert(50)
+      .insert(120)
+      .insert(100)
+      .insert(140)
+      .insert(90)
+      .insert(10)
+      .insert(30);
+
+    console.log('red black -->', this.redBlackTree.root);
+    // $('#redBlack').empty().append(result);
+  }
+
   bindEvents() {
     $('#setBST').on('click', () => this.setBST());
     $('#delBST').on('click', () => this.delBST());
     $('#setAVL').on('click', () => this.setAVL());
+    $('#setRedBlack').on('click', () => this.setRedBlack());
   }
 }
 

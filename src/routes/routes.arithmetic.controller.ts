@@ -55,4 +55,31 @@ export class RoutesArithmeticController {
       toggleMenu: 'arithmetic'
     });
   }
+
+  @Get('/graph')
+  graph(@Res() res) {
+    res.render('./arithmetic/graph.html', {
+      title: '图',
+      mainMenu: 'graph',
+      toggleMenu: 'arithmetic'
+    });
+  }
+
+  @Get('/sort')
+  sort(@Res() res) {
+    res.render('./arithmetic/sort.html', {
+      title: '排序',
+      mainMenu: 'sort',
+      toggleMenu: 'arithmetic'
+    });
+  }
+
+  @Get('/models')
+  models(@Res() res) {
+    res.render('./arithmetic/models.html', {
+      title: '算法模式',
+      mainMenu: 'models',
+      toggleMenu: 'arithmetic'
+    });
+  }
 }

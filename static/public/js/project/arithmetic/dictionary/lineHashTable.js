@@ -1,3 +1,7 @@
+/**
+ * 线性探查散链表
+ */
+
 const hashCode = Symbol("hashCode");
 const djb2HashCode = Symbol("djb2HashCode");
 

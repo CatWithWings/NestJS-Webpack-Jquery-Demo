@@ -1,3 +1,7 @@
+/**
+ * 分离链表散链表
+ */
+
 import LinkList from './linkList';
 
 const hashCode = Symbol("hashCode");

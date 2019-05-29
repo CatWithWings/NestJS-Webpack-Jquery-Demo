@@ -3,7 +3,8 @@ const webpack = require('webpack'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   glob = require('glob'),
   helpers = require('./helpers'),
-  webpackPageConfig = require('./webpack.base.page')(HtmlWebpackPlugin);
+  webpackPageConfig = require('./webpack.base.page')(HtmlWebpackPlugin),
+  ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 function entries() {
   var jsDir = helpers.root('static/public/js/project/'),
@@ -191,6 +192,13 @@ module.exports = {
   },
 
   plugins: [
-    ...webpackPageConfig
+    ...webpackPageConfig,
+
+    // service work test
+    new ServiceWorkerWebpackPlugin({
+      // 自定义的 sw.js 文件所在路径
+      // ServiceWorkerWebpackPlugin 会把文件列表注入到生成的 sw.js 中
+      entry: helpers.root('static/public/js/project/index/sw-demo-cache'),
+    }),
   ]
 };

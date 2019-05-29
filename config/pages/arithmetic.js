@@ -47,6 +47,30 @@ module.exports = function(HtmlWebpackPlugin) {
       template: 'static/views/arithmetic/tree.html',
       chunks: [ 'base', 'tree.main'],
       chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-图',
+      filename: '../views/arithmetic/graph.html',
+      template: 'static/views/arithmetic/graph.html',
+      chunks: [ 'base', 'graph.main'],
+      chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-排序',
+      filename: '../views/arithmetic/sort.html',
+      template: 'static/views/arithmetic/sort.html',
+      chunks: [ 'base', 'sort.main'],
+      chunksSortMode: 'manual'
+    }),
+
+    new HtmlWebpackPlugin({
+      title: '算法-模式',
+      filename: '../views/arithmetic/models.html',
+      template: 'static/views/arithmetic/models.html',
+      chunks: [ 'base', 'models.main'],
+      chunksSortMode: 'manual'
     })
   ]
 }
