@@ -4,6 +4,7 @@ class IndexApp {
   constructor() {}
 
   init() {
+    ServerWorkTest.install();
     this.bindEvents.apply(this);
   }
 
@@ -79,8 +80,31 @@ class IndexApp {
     });
   }
 
-  testServerWork() {
-    // ServerWorkTest.install();
+  testGetBody() {
+    const data = {testData: "hello"}
+    const xhr = new XMLHttpRequest ( ) ;
+    xhr.onreadystatechange=function(){}
+    xhr.open('get','/customer/test_get_body');
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.send(JSON.stringify(data));
+    // $.ajax({
+    //   type: "GET",
+    //   contentType: 'application/json',
+    //   url: "/customer/test_get_body",
+    //   dataType: "json",
+    //   data: JSON.stringify({
+    //     "testData": 'Hello'
+    //   }),
+    //   success: function(data,){
+    //     console.log('index', data)
+    //   },
+    // });
+  }
+
+  testPushState() {
+    history.replaceState({}, "second", "/yjm.second.html")
+    console.log(history)
   }
 
   bindEvents() {
@@ -88,7 +112,8 @@ class IndexApp {
     $("#test_option").on('click', this.testOption.bind(this));
     $("#test_head").on('click', this.headOption.bind(this));
     $('#test_ask').on('click', this.wwwAuthorization.bind(this));
-    $("#test_sw_btn").on('click', this.testServerWork.bind(this));
+    $("#test_get_body").on("click", this.testGetBody.bind(this));
+    $("#test_push_state").on("click", this.testPushState.bind(this))
   }
 }
 

@@ -59,6 +59,16 @@ export class CustomerController {
   }
 
   @HttpCode(200)
+  @Get('/test_get_body')
+  async testGetBody(@Req() request) {
+    console.log("test get body -->", request)
+    return {
+      data: [],
+      statusCode: HttpStatus.OK,
+    };
+  }
+
+  @HttpCode(200)
   @Get('/foods')
   async findAllFoods() {
     const result = await this.customerService.findAllFoods();

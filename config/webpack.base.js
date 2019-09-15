@@ -4,7 +4,28 @@ const webpack = require('webpack'),
   glob = require('glob'),
   helpers = require('./helpers'),
   webpackPageConfig = require('./webpack.base.page')(HtmlWebpackPlugin),
-  ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+  fs = require('fs'),
+  path = require('path');
+
+function resolve(...args) {
+  return path.join(__dirname, ...args);
+}
+
+// 创建文件夹
+if (!fs.existsSync(resolve('..', 'dist/static'))) {
+  fs.mkdirSync(resolve('..', 'dist/static'));
+}
+
+if (!fs.existsSync(resolve('..', 'dist/static/public'))) {
+  fs.mkdirSync(resolve('..', 'dist/static/public'));
+}
+
+if (!fs.existsSync(resolve('..', 'dist/static/public/js'))) {
+  fs.mkdirSync(resolve('..', 'dist/static/public/js'));
+}
+
+// 拷贝文件
+fs.copyFileSync(resolve('sw-demo-cache.js'), resolve('..', 'dist/static/public/js/sw-demo-cache.js'));
 
 function entries() {
   var jsDir = helpers.root('static/public/js/project/'),
@@ -192,13 +213,6 @@ module.exports = {
   },
 
   plugins: [
-    ...webpackPageConfig,
-
-    // service work test
-    new ServiceWorkerWebpackPlugin({
-      // 自定义的 sw.js 文件所在路径
-      // ServiceWorkerWebpackPlugin 会把文件列表注入到生成的 sw.js 中
-      entry: helpers.root('static/public/js/project/index/sw-demo-cache'),
-    }),
+    ...webpackPageConfig
   ]
 };

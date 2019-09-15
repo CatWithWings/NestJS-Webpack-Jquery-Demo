@@ -25,7 +25,8 @@
 ```
 
 ## preview page
-  localhost:4005
+  - localhost:4005
+  - https://127.0.0.1:4005
 
 
 ## mySQL数据库
@@ -69,6 +70,7 @@
  - 每个页面对应的js文件必须放在 static/public/js/product/?[toggleTye]/[pageFileName]/
  - webpack 采用多入口配置，页面所用的主入口必须以[pageFileName].main.js命名
  - config/webpack.base.page 中每个页面要引入的入口文件在chunks属性中配置
+ - 项目中有文件复制等操作，建议使用IntelliJ编辑，VS Code经常卡死
 ```
 
 ## 关于webpack-parallel-uglify-plugin
