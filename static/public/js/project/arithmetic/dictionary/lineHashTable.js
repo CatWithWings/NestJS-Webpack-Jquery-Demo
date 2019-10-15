@@ -5,6 +5,13 @@
 const hashCode = Symbol("hashCode");
 const djb2HashCode = Symbol("djb2HashCode");
 
+class VaulePair {
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+  }
+}
+
 export default class LineHashTable {
   constructor() {
     this.table = [];
@@ -49,27 +56,44 @@ export default class LineHashTable {
 
     if (this.table[index] === undefined) {
       this.record += `散列表：${key} 存放在索引 ${index}位置<br>`;
-      this.table[index] = value;
+      this.table[index] = new VaulePair(key, value);
     } else {
       let pos = ++index;
       while (this.table[pos] !== undefined) {
         pos++;
       }
       this.record += `散列表：${key} 存放在索引 ${pos}位置<br>`;
-      this.table[pos] = value;
+      this.table[pos] = new VaulePair(key, value);
     }
     return this;
   }
 
   // 移除项
   remove(key) {
-    this.table[this[hashCode](key)] = undefined;
+    let index = this[hashCode](key);
+
+    if (this.table[index] !== undefined) {
+      while (this.table[index] === undefined || this.table[index].key !== key) {
+        index++;
+      }
+      this.table[index] = undefined;
+      return this;
+    }
     return this;
   }
 
   // 获取项
   get(key) {
-    return this.table[this[hashCode](key)];
+    let index = this[hashCode](key);
+
+    if (this.table[index] !== undefined) {
+      while (this.table[index] === undefined || this.table[index].key !== key) {
+        index++
+      }
+      return this.table[index];
+    }
+
+    return undefined
   }
 
   print() {
