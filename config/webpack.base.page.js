@@ -1,6 +1,7 @@
 const pattern = require("./pages/pattern");
 const arithmetic = require("./pages/arithmetic");
 const shadowDom = require("./pages/shadowDom");
+const buried = require("./pages/buried");
 
 function webpackPageConfig(HtmlWebpackPlugin) {
   return [
@@ -24,7 +25,9 @@ function webpackPageConfig(HtmlWebpackPlugin) {
 
     ...arithmetic(HtmlWebpackPlugin),
 
-    ...shadowDom(HtmlWebpackPlugin)
+    ...shadowDom(HtmlWebpackPlugin),
+    
+    ...buried(HtmlWebpackPlugin)
   ];
 }
 

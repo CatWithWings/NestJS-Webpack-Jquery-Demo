@@ -3,6 +3,7 @@ import { RoutesPatternController } from './routes.pattern.controller';
 import { RoutesArithmeticController } from './routes.arithmetic.controller';
 import { RoutesShadowDomController } from './routes.shadowDom.controller';
 import { RoutesIndexController } from './routes.index.controller';
+import { RoutesBuriedController } from './routes.buried.point.controller';
 import { from } from 'rxjs';
 
 @Module({
@@ -11,7 +12,8 @@ import { from } from 'rxjs';
     RoutesPatternController,
     RoutesArithmeticController,
     RoutesShadowDomController,
-    RoutesIndexController
+    RoutesIndexController,
+    RoutesBuriedController
   ],
 })
 export class RoutesModule {}
