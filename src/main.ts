@@ -10,16 +10,16 @@ const fs = require('fs');
 
 async function bootstrap() {
   // 这些key是直接copy到dist文件夹的
-  const httpsOptions = {
-    key: fs.readFileSync(join(__dirname, '..', 'keys/server/server.key')),
-    cert: fs.readFileSync(join(__dirname, '..', 'keys/server/server.crt'))
-  };
+  // const httpsOptions = {
+  //   key: fs.readFileSync(join(__dirname, '..', 'keys/server/server.key')),
+  //   cert: fs.readFileSync(join(__dirname, '..', 'keys/server/server.crt'))
+  // };
 
-  // 开启https协议
-  // chrome://flags/#allow-insecure-localhost 开启信任本地ssl证书
-  const app = await NestFactory.create(AppModule, {
-    httpsOptions
-  });
+  // 开启https协议 chrome://flags/#allow-insecure-localhost 开启信任本地ssl证书
+  // const app = await NestFactory.create(AppModule, {
+  //   httpsOptions
+  // });
+  const app = await NestFactory.create(AppModule);
 
   app.set('views', join(__dirname, '..', 'static/views/'));
   app.set('view engine', 'html');
