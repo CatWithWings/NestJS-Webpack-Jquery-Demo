@@ -1,5 +1,16 @@
 import moment from 'moment';
 
+document.onload = () => {
+  console.log('handleLoad')
+  // 当浏览器的资源时间性能缓冲区已满时会触发
+  performance.onresourcetimingbufferfull = () => {
+    console.log("WARNING: Resource Timing Buffer is FULL!");
+
+    // 设置缓冲区中性能对象保存的最大条数
+    performance.setResourceTimingBufferSize(200);
+  };
+}
+
 class PerformanceApp {
   constructor(){
     this.dateFormat = 'YYYY-MM-DD HH:mm:ss';
@@ -22,10 +33,11 @@ class PerformanceApp {
      * 255 - 任何不属于上述方法的进入方式
      */
     const infos = window.performance.navigation;
-    console.log('页面操作相关信息 -->', infos)
+    console.log('页面从哪里来相关信息 -->', infos)
   }
 
   getTimeing() {
+    // https://www.jianshu.com/p/deb76d1d2831
     const info = window.performance.timing;
     const res = {
       navigationStart: `同浏览器上一个文档卸载结束时的时间 -> ${moment(info.navigationStart).format(this.dateFormat)}`,
