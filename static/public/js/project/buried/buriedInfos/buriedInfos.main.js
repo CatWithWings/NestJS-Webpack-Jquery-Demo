@@ -16,7 +16,7 @@ class BuriedInfosApp {
   }
   
   async init() {
-    const traceLog = new TraceLog()
+    const traceLog = new TraceLog(10284759)
     this.infos = await traceLog.initTracelog()
 
     // 这些方法都是客户端拿到数据this.infos后，传回给分析组

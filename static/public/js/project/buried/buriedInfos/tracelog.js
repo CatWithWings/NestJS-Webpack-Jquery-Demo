@@ -7,13 +7,21 @@ const _getNavigation = Symbol('_getNavigation');
 const _getTiming = Symbol('_getTiming');
 
 export default class TraceLog {
+  constructor(pageId, pickDelay) {
+    this.secret = 'CAT KEY 123456';
+    this.pageId = pageId;
+    
+    // 延迟采集时间
+    this.pickDelay = pickDelay || 3000;
+  }
+  
   /**
    * 暴露给使用者的初始化埋点接口
    * 但此方法是异步的所以调用时必须使用await或者then
    * @returns {Promise<any>}
    */
   initTracelog() {
-    return new Promise((reslove, reject) => {
+    return new Promise((reslove) => {
       // 防止过早获取domComplete等值为0
       let timer = setTimeout(() => {
         timer = null;
@@ -22,7 +30,7 @@ export default class TraceLog {
             const res = this[_getBuriedInfos]()
             reslove(res)
           })
-      }, 5000)
+      }, this.pickDelay)
     })
   }
 
@@ -33,11 +41,11 @@ export default class TraceLog {
   [_getVId] () {
     return new Promise((reslove) => {
       if (Cookies.get('VID') === undefined) {
-        const secret = 'CAT KEY 123456';
         const now = Date.now();
         const agentinfos = navigator.userAgent;
-        const text = `${now}-${agentinfos}`
-        const vid = CryptoJS.MD5(text, secret).toString()
+        const text = `${now}-${agentinfos}`;
+        const vid = CryptoJS.MD5(text, this.secret).toString();
+        
         // 当前页有效
         Cookies.set('VID', vid, { expires: 1, path: location.pathname });
 
@@ -49,10 +57,11 @@ export default class TraceLog {
   [_getBuriedInfos]() {
     const navigation = this[_getNavigation]();
     const { timeValue, raw } = this[_getTiming]();
+    const pageId = this.pageId;
     
     const params = {
       vId: Cookies.get('VID'),
-      pageId: 10284759, // 每个页面下发固定独立的pageId
+      pageId, // 每个页面下发固定独立的pageId
       navigation: {
         type: navigation.type,
         redirect: navigation.redirectCount
