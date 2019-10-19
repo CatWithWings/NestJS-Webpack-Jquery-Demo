@@ -6,6 +6,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 
+// 埋点模块
 import TraceLog from './tracelog';
 
 class BuriedInfosApp {
