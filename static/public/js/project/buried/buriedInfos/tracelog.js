@@ -7,6 +7,10 @@ const _getNavigation = Symbol('_getNavigation');
 const _getTiming = Symbol('_getTiming');
 
 export default class TraceLog {
+  /**
+   * @param {Number} pageId 申请pageId
+   * @param {Number | undefined} pickDelay 采集性能信息延迟时间
+   */
   constructor(pageId, pickDelay) {
     this.secret = 'CAT KEY 123456';
     this.pageId = pageId;
