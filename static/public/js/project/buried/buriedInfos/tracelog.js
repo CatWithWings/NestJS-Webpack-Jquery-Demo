@@ -5,6 +5,7 @@ const _getVId = Symbol('_getVId');
 const _getBuriedInfos = Symbol('_getBuriedInfos');
 const _getNavigation = Symbol('_getNavigation');
 const _getTiming = Symbol('_getTiming');
+const _getMemory = Symbol('_getMemory');
 
 export default class TraceLog {
   /**
@@ -61,6 +62,7 @@ export default class TraceLog {
   [_getBuriedInfos]() {
     const navigation = this[_getNavigation]();
     const { timeValue, raw } = this[_getTiming]();
+    const momery = this[_getMemory]();
     const pageId = this.pageId;
     
     const params = {
@@ -82,7 +84,12 @@ export default class TraceLog {
         domContentLoadedEventTime: timeValue.domContentLoadedEventTime, // domContentLoadedEvent持续时间
         loadTime: timeValue.loadTime // loadEvent持续时间
       },
-      raw: raw
+      rawTiming: raw,
+      momery: {
+        jsHeapSizeLimit: momery.jsHeapSizeLimit,
+        totalJSHeapSize: momery.totalJSHeapSize,
+        usedJSHeapSize: momery.usedJSHeapSize
+      }
     }
 
     return params;
@@ -127,5 +134,10 @@ export default class TraceLog {
         loadTime: origin.loadEventEnd - origin.loadEventStart
       }
     }
+  }
+  
+  [_getMemory]() {
+    const info = window.performance.memory;
+    return info;
   }
 }

@@ -3,6 +3,7 @@
 import '@STYLE_SHEETS/buriedInfos.scss';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/funnel';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 
@@ -16,8 +17,8 @@ class BuriedInfosApp {
   }
   
   async init() {
-    const traceLog = new TraceLog(10284759)
-    this.infos = await traceLog.initTracelog()
+    const traceLog = new TraceLog(10284759);
+    this.infos = await traceLog.initTracelog();
 
     // 这些方法都是客户端拿到数据this.infos后，传回给分析组
     // 分析组根据数据做的操作，只是这里写在了一起
@@ -26,9 +27,10 @@ class BuriedInfosApp {
       this.infos.pageId, 
       this.infos.navigation
     );
-    this.setDomCompletePie(this.infos.timing, this.infos.raw);
+    this.setDomCompletePie(this.infos.timing, this.infos.rawTiming);
     this.setDomParsePie(this.infos.timing);
-    $('#loading').removeClass('loading')
+    this.setMomeryChart(this.infos.momery);
+    $('#loading').removeClass('loading');
     this.bindEvents();
   }
 
@@ -37,6 +39,14 @@ class BuriedInfosApp {
     const minutes = parseInt((ms % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = (ms % (1000 * 60)) / 1000;
     return hours + " 小时 " + minutes + " 分钟 " + seconds + " 秒 ";
+  }
+
+  formatBytesToSize (bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B','KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)) + ' ' + sizes[i];                                                                                                              //return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
   }
   
   // 页面navgiation信息
@@ -48,7 +58,7 @@ class BuriedInfosApp {
   }
   
   // 页面从dns~完全展示
-  setDomCompletePie(value, raw) {
+  setDomCompletePie(value, rawTiming) {
     const lengend = [
       'dns解析耗时',
       '建立tcp+ssl耗时',
@@ -64,7 +74,7 @@ class BuriedInfosApp {
       title : {
         text: 
           `从DNS查找~Load事件完成: ${
-          this.formatDuring(raw.loadEventEnd - raw.domainLookupStart)
+          this.formatDuring(rawTiming.loadEventEnd - rawTiming.domainLookupStart)
         }`,
         subtext: `白屏时间: ${this.formatDuring(value.whitePageTime)}`,
         x:'center'
@@ -104,7 +114,7 @@ class BuriedInfosApp {
     const lengend = [
       'dom解析耗时',
       '资源完全加载耗时'
-    ]
+    ];
     const myChart = echarts.init(document.getElementById('domParsePie'));
     // 绘制图表
     myChart.setOption({
@@ -133,6 +143,52 @@ class BuriedInfosApp {
           data:[
             {value: value.domParseTime, name: lengend[0]},
             {value: value.domLoading - value.domParseTime, name: lengend[1]}
+          ]
+        }
+      ]
+    });
+  }
+
+  // JS heap 分配及占用情况
+  setMomeryChart(value) {
+    const lengend = [
+      '其他',
+      'JS 已分配但未使用内存',
+      'JS 活动段已用内存'
+    ];
+    const myChart = echarts.init(document.getElementById('momery'));
+
+    myChart.setOption({
+      title : {
+        text: `JS Heap 分配及占用`,
+        subtext: `可分配堆内存上限: ${
+          this.formatBytesToSize(value.jsHeapSizeLimit)
+          }`,
+        x:'center'
+      },
+      tooltip : {
+        trigger: 'item',
+        formatter: (data) => {
+          const btys = this.formatBytesToSize(data.data.value)
+          return `${data.data.name}: ${btys}`
+        }
+      },
+      legend: {
+        x : 'center',
+        y : 'bottom',
+        data:[...lengend]
+      },
+      series : [
+        {
+          type:'pie',
+          radius : '60%',
+          data:[
+            { value: value.usedJSHeapSize, name: lengend[2] },
+            { value: value.totalJSHeapSize  - value.usedJSHeapSize, name: lengend[1] },
+            { 
+              value: value.jsHeapSizeLimit - value.totalJSHeapSize, 
+              name: lengend[0] 
+            }
           ]
         }
       ]

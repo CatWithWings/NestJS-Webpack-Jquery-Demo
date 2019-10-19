@@ -80,11 +80,11 @@ class PerformanceApp {
   }
   
   getTMemory() {
-    const info = window.performance.memory
+    const info = window.performance.memory;
     console.log('JS 内存信息 -->', {
-      jsHeapSizeLimit: `可分配内存上限 -> ${this._bytesToSize(info.jsHeapSizeLimit)}`,
+      jsHeapSizeLimit: `可分配堆内存上限 -> ${this._bytesToSize(info.jsHeapSizeLimit)}`,
       totalJSHeapSize: `JS 分配总内存 -> ${this._bytesToSize(info.totalJSHeapSize)}`,
-      usedJSHeapSize: `JS 已用内存 -> ${this._bytesToSize(info.usedJSHeapSize)}`
+      usedJSHeapSize: `JS 活动段已用内存 -> ${this._bytesToSize(info.usedJSHeapSize)}`
     })
   }
 
