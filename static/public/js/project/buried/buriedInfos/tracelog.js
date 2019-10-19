@@ -38,7 +38,6 @@ export default class TraceLog {
       // 防止过早获取domComplete等值为0
       let timer = setTimeout(async() => {
         timer = null;
-        await this[_getVId]();
         await this[_init]();
         
         this[_getBuriedInfos]();
@@ -56,7 +55,8 @@ export default class TraceLog {
       
       this[_getMemory](mometyInterval);
       // 因为获取memory用了异步,所以这里必须等初次memory采集完成才一起返回数据
-      setTimeout(() => {
+      setTimeout(async() => {
+        await this[_getVId]();
         this[_getNavigation]();
         this[_getTiming]();
         res()
