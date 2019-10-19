@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 
+const _init = Symbol('_init');
 const _getVId = Symbol('_getVId');
 const _getBuriedInfos = Symbol('_getBuriedInfos');
 const _getNavigation = Symbol('_getNavigation');
@@ -18,6 +19,13 @@ export default class TraceLog {
     
     // 延迟采集时间
     this.pickDelay = pickDelay || 3000;
+    
+    this.navigation = {};
+    this.timing = {};
+    this.memory = {};
+    
+    // 采集的埋点数据
+    this.buriedInfos = {};
   }
   
   /**
@@ -28,41 +36,39 @@ export default class TraceLog {
   initTracelog() {
     return new Promise((reslove) => {
       // 防止过早获取domComplete等值为0
-      let timer = setTimeout(() => {
+      let timer = setTimeout(async() => {
         timer = null;
-        this[_getVId]()
-          .then(() => {
-            const res = this[_getBuriedInfos]()
-            reslove(res)
-          })
+        await this[_getVId]();
+        await this[_init]();
+        
+        this[_getBuriedInfos]();
+        // _getBuriedInfos 与 _getBuriedInfos 都会修改该值
+        reslove(this.buriedInfos);
       }, this.pickDelay)
     })
   }
-
-  /**
-   * 生成VID设备指纹，其实更好的是后端根据硬件信息生成
-   * 有效期1天，1天内不重复计算该流量
-   */
-  [_getVId] () {
-    return new Promise((reslove) => {
-      if (Cookies.get('VID') === undefined) {
-        const now = Date.now();
-        const agentinfos = navigator.userAgent;
-        const text = `${now}-${agentinfos}`;
-        const vid = CryptoJS.MD5(text, this.secret).toString();
-        
-        // 当前页有效
-        Cookies.set('VID', vid, { expires: 1, path: location.pathname });
-
-      }
-      reslove(true)
+  
+  // 模块内部初始化: 调用所有采集方法
+  [_init]() {
+    return new Promise(res => {
+      const mometyInterval = 1000;
+      const delay = mometyInterval + 500;
+      
+      this[_getMemory](mometyInterval);
+      // 因为获取memory用了异步,所以这里必须等初次memory采集完成才一起返回数据
+      setTimeout(() => {
+        this[_getNavigation]();
+        this[_getTiming]();
+        res()
+      }, delay)
     })
+    
   }
 
   [_getBuriedInfos]() {
-    const navigation = this[_getNavigation]();
-    const { timeValue, raw } = this[_getTiming]();
-    const momery = this[_getMemory]();
+    const navigation = this.navigation;
+    const { timeValue, raw } = this.timing;
+    const memory = this.memory;
     const pageId = this.pageId;
     
     const params = {
@@ -85,14 +91,34 @@ export default class TraceLog {
         loadTime: timeValue.loadTime // loadEvent持续时间
       },
       rawTiming: raw,
-      momery: {
-        jsHeapSizeLimit: momery.jsHeapSizeLimit,
-        totalJSHeapSize: momery.totalJSHeapSize,
-        usedJSHeapSize: momery.usedJSHeapSize
+      memory: {
+        jsHeapSizeLimit: memory.jsHeapSizeLimit,
+        totalJSHeapSize: memory.totalJSHeapSize,
+        usedJSHeapSize: memory.usedJSHeapSize
       }
-    }
+    };
 
-    return params;
+    this.buriedInfos = params;
+  }
+
+  /**
+   * 生成VID设备指纹，其实更好的是后端根据硬件信息生成
+   * 有效期1天，1天内不重复计算该流量
+   */
+  [_getVId] () {
+    return new Promise((reslove) => {
+      if (Cookies.get('VID') === undefined) {
+        const now = Date.now();
+        const agentinfos = navigator.userAgent;
+        const text = `${now}-${agentinfos}`;
+        const vid = CryptoJS.MD5(text, this.secret).toString();
+
+        // 当前页有效
+        Cookies.set('VID', vid, { expires: 1, path: location.pathname });
+
+      }
+      reslove(true)
+    })
   }
 
   [_getNavigation]() {
@@ -104,7 +130,7 @@ export default class TraceLog {
       3: '未知进入方式'
     }
 
-    return {
+    this.navigation = {
       type: {
         value: origin.type,
         des: typeMap[origin.type]
@@ -117,7 +143,7 @@ export default class TraceLog {
     const origin = window.performance.timing;
     const isSSL = origin.secureConnectionStart !== 0;
 
-    return {
+    this.timing = {
       raw: origin,
       timeValue: {
         dnsTime: origin.domainLookupEnd - origin.domainLookupStart,
@@ -135,9 +161,29 @@ export default class TraceLog {
       }
     }
   }
-  
-  [_getMemory]() {
-    const info = window.performance.memory;
-    return info;
+
+  /**
+   * 每隔 interval ms 采集依次memory信息
+   * @param interval
+   */
+  [_getMemory](interval) {
+    let previous = Date.now();
+    
+    let loop = () => {
+      let now = Date.now();
+      let remaining = now - previous;
+      
+      requestAnimationFrame(loop);
+      if (remaining >= interval) {
+        previous = now;
+        const temp = window.performance.memory;
+        this.memory = temp; 
+        this.buriedInfos = {
+          ...this.buriedInfos,
+          memory: temp
+        }
+      }
+    };
+    requestAnimationFrame(loop);
   }
 }

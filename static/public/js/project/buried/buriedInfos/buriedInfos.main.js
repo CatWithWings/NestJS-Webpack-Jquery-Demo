@@ -29,7 +29,11 @@ class BuriedInfosApp {
     );
     this.setDomCompletePie(this.infos.timing, this.infos.rawTiming);
     this.setDomParsePie(this.infos.timing);
-    this.setMomeryChart(this.infos.momery);
+    this.setMemoryChart(this.infos.memory);
+    
+    // 每隔5秒重新更新一次内存情况
+    this.repeatSetMemoryChart(5000);
+    
     $('#loading').removeClass('loading');
     this.bindEvents();
   }
@@ -150,13 +154,13 @@ class BuriedInfosApp {
   }
 
   // JS heap 分配及占用情况
-  setMomeryChart(value) {
+  setMemoryChart(value) {
     const lengend = [
       '其他',
       'JS 已分配但未使用内存',
       'JS 活动段已用内存'
     ];
-    const myChart = echarts.init(document.getElementById('momery'));
+    const myChart = echarts.init(document.getElementById('memory'));
 
     myChart.setOption({
       title : {
@@ -193,6 +197,26 @@ class BuriedInfosApp {
         }
       ]
     });
+  }
+
+  /**
+   * 每隔 interval 更新一次内存情况
+   * @param interval
+   */
+  repeatSetMemoryChart(interval) {
+    let previous = Date.now();
+
+    let loop = () => {
+      let now = Date.now();
+      let remaining = now - previous;
+
+      requestAnimationFrame(loop);
+      if (remaining >= interval) {
+        previous = now;
+        this.setMemoryChart(this.infos.memory);
+      }
+    };
+    requestAnimationFrame(loop);
   }
 
   bindEvents() {}
