@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
+import { cloneDeep  } from 'lodash-es';
 
 const _init = Symbol('_init');
 const _getVId = Symbol('_getVId');
@@ -7,6 +8,8 @@ const _getBuriedInfos = Symbol('_getBuriedInfos');
 const _getNavigation = Symbol('_getNavigation');
 const _getTiming = Symbol('_getTiming');
 const _getMemory = Symbol('_getMemory');
+const _sendNewBuried = Symbol('_sendNewBuried');
+const _getJSError = Symbol('_getJSError');
 
 export default class TraceLog {
   /**
@@ -15,7 +18,7 @@ export default class TraceLog {
    */
   constructor(pageId, pickDelay) {
     this.secret = 'CAT KEY 123456';
-    this.pageId = pageId;
+    this.pageId = pageId || 0;
     
     // 延迟采集时间
     this.pickDelay = pickDelay || 3000;
@@ -24,7 +27,7 @@ export default class TraceLog {
     this.timing = {};
     this.memory = {};
     
-    // 采集的埋点数据
+    // 采集的埋点总数据
     this.buriedInfos = {};
   }
   
@@ -40,17 +43,43 @@ export default class TraceLog {
         timer = null;
         await this[_init]();
         
-        this[_getBuriedInfos]();
         // _getBuriedInfos 与 _getBuriedInfos 都会修改该值
-        reslove(this.buriedInfos);
+        reslove(this.getBuriedInfos());
       }, this.pickDelay)
     })
+  }
+  
+  /**
+   * 对外接口 - 返回所有 buriedInfos
+   * 读取buriedInfos 应是只读的
+   * 且这个方法应当是获取buriedInfos的唯一途径
+   */
+  getBuriedInfos() {
+    const result = cloneDeep(this.buriedInfos);
+    return result
+  }
+  
+  /*
+   * 更新buriedInfos
+   * 每次更新infos都应当调用它而不是直接更改
+   * @param {Object} newPerporty 要更新的属性对象
+   */
+  updateBuriedInfos(newPerporty) {
+    const oldValue = cloneDeep(this.buriedInfos);
+    this.buriedInfos = {
+      ...oldValue,
+      ...newPerporty
+    };
+    
+    // 向服务端发送新的埋点信息
+    this[_sendNewBuried](this.buriedInfos)
   }
   
   // 模块内部初始化: 调用所有采集方法
   [_init]() {
     return new Promise(res => {
-      const mometyInterval = 1000;
+      // 每隔20S重新获取heap 内存信息
+      const mometyInterval = 20000;
       const delay = mometyInterval + 500;
       
       this[_getMemory](mometyInterval);
@@ -59,10 +88,12 @@ export default class TraceLog {
         await this[_getVId]();
         this[_getNavigation]();
         this[_getTiming]();
+        this[_getJSError]();
+
+        this[_getBuriedInfos]();
         res()
       }, delay)
     })
-    
   }
 
   [_getBuriedInfos]() {
@@ -74,6 +105,10 @@ export default class TraceLog {
     const params = {
       vId: Cookies.get('VID'),
       pageId, // 每个页面下发固定独立的pageId
+      location: {
+        origin: location.origin,
+        refer: location.href
+      },
       navigation: {
         type: navigation.type,
         redirect: navigation.redirectCount
@@ -97,8 +132,8 @@ export default class TraceLog {
         usedJSHeapSize: memory.usedJSHeapSize
       }
     };
-
-    this.buriedInfos = params;
+    
+    this.updateBuriedInfos(params);
   }
 
   /**
@@ -177,13 +212,30 @@ export default class TraceLog {
       if (remaining >= interval) {
         previous = now;
         const temp = window.performance.memory;
-        this.memory = temp; 
-        this.buriedInfos = {
-          ...this.buriedInfos,
-          memory: temp
-        }
+        this.memory = temp;
+        this.updateBuriedInfos({ memory: temp });
       }
     };
     requestAnimationFrame(loop);
+  }
+
+  /**
+   * 检测 JS Error
+   * 由于同源策略，需给所有script标签添加crossorigin属性
+   * 问题：如何检测动态添加的script？webpack: output.crossOriginLoading
+   * 问题：非动态的如何添加crossOrgin属性？尚未解决
+   */
+  [_getJSError] () {
+    // const scripts = document.getElementsByTagName('script');
+    // [...scripts].forEach(item => {
+    //   item.setAttribute("crossorigin", "anonymous");
+    // });
+    window.onerror = (message, source, lineno, colno, error) => {
+      console.log('onerror -->', message, source, lineno, colno, error)
+    }
+  }
+  
+  [_sendNewBuried] (params) {
+    console.log('发送新的埋点信息')
   }
 }

@@ -12,24 +12,27 @@ import TraceLog from './tracelog';
 
 class BuriedInfosApp {
   constructor() {
-    this.infos = {};
+    // traceLog 实例
+    this.traceLog = null;
     this.init()
   }
   
   async init() {
-    const traceLog = new TraceLog(10284759);
-    this.infos = await traceLog.initTracelog();
+    this.traceLog = new TraceLog(10284759);
+    await this.traceLog.initTracelog();
+    const infos = this.traceLog.getBuriedInfos();
 
-    // 这些方法都是客户端拿到数据this.infos后，传回给分析组
+    // 这些方法都是客户端拿到数据后，传回给分析组
     // 分析组根据数据做的操作，只是这里写在了一起
     this.setNavgiation(
-      this.infos.vId, 
-      this.infos.pageId, 
-      this.infos.navigation
+      infos.vId,
+      infos.pageId,
+      infos.location,
+      infos.navigation
     );
-    this.setDomCompletePie(this.infos.timing, this.infos.rawTiming);
-    this.setDomParsePie(this.infos.timing);
-    this.setMemoryChart(this.infos.memory);
+    this.setDomCompletePie(infos.timing, infos.rawTiming);
+    this.setDomParsePie(infos.timing);
+    this.setMemoryChart(infos.memory);
     
     // 每隔5秒重新更新一次内存情况
     this.repeatSetMemoryChart(5000);
@@ -54,11 +57,13 @@ class BuriedInfosApp {
   }
   
   // 页面navgiation信息
-  setNavgiation(vId, pageId, navigation) {
+  setNavgiation(vId, pageId, location, navigation) {
     document.getElementById('vid').innerText = vId;
     document.getElementById('resource').innerText = navigation.type.des;
     document.getElementById('redirectCount').innerText = navigation.redirect;
-    document.getElementById('page_id').innerText = pageId
+    document.getElementById('page_id').innerText = pageId;
+    document.getElementById('origin').innerText = location.origin;
+    document.getElementById('refer').innerText = location.refer;
   }
   
   // 页面从dns~完全展示
@@ -213,7 +218,7 @@ class BuriedInfosApp {
       requestAnimationFrame(loop);
       if (remaining >= interval) {
         previous = now;
-        this.setMemoryChart(this.infos.memory);
+        this.setMemoryChart(this.traceLog.getBuriedInfos().memory);
       }
     };
     requestAnimationFrame(loop);

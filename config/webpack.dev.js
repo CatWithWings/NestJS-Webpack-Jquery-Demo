@@ -7,12 +7,14 @@ const webpack = require('webpack'),
 
 module.exports = webpackMerge(commonConfig, {
   mode: 'development',
-
+  target: 'web',
   output: {
     path: helpers.root('dist/static/public'),
     publicPath: '/',
     filename: "js/[name].[chunkhash].js",
     chunkFilename: 'js/[name].[chunkhash:5].chunk.js',
+    // script添加 crossorigin属性，以便跨域可以获取js error信息,仅对异步加载的script有效
+    crossOriginLoading: 'anonymous',
     libraryTarget: "umd"
   },
 
