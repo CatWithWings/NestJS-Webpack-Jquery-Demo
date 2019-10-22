@@ -1,4 +1,5 @@
 const webpack = require('webpack'),
+  SriPlugin = require('webpack-subresource-integrity'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   glob = require('glob'),
@@ -213,6 +214,11 @@ module.exports = {
   },
 
   plugins: [
+    new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      enabled: process.env.NODE_ENV === 'production' // 设置仅在生产环境添加SRI验证
+    }),
+    
     ...webpackPageConfig
   ]
 };

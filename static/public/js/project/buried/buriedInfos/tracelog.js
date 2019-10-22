@@ -10,6 +10,7 @@ const _getTiming = Symbol('_getTiming');
 const _getMemory = Symbol('_getMemory');
 const _sendNewBuried = Symbol('_sendNewBuried');
 const _getJSError = Symbol('_getJSError');
+const _eventLister = Symbol('_eventLister');
 
 export default class TraceLog {
   /**
@@ -89,6 +90,7 @@ export default class TraceLog {
         this[_getNavigation]();
         this[_getTiming]();
         this[_getJSError]();
+        this[_eventLister]();
 
         this[_getBuriedInfos]();
         res()
@@ -130,7 +132,15 @@ export default class TraceLog {
         jsHeapSizeLimit: memory.jsHeapSizeLimit,
         totalJSHeapSize: memory.totalJSHeapSize,
         usedJSHeapSize: memory.usedJSHeapSize
-      }
+      },
+      jsError: {
+        message: "", 
+        source: "", // 发生错误的脚本URL
+        lineno: null, // 发生错误的行号
+        colno: null, // 发生错误的列号
+        error: null // Error对象
+      },
+      events: []
     };
     
     this.updateBuriedInfos(params);
@@ -223,19 +233,99 @@ export default class TraceLog {
    * 检测 JS Error
    * 由于同源策略，需给所有script标签添加crossorigin属性
    * 问题：如何检测动态添加的script？webpack: output.crossOriginLoading
-   * 问题：非动态的如何添加crossOrgin属性？尚未解决
+   * 问题：非动态的如何添加crossOrgin属性？webpack: webpack-subresource-integrity 插件
    */
   [_getJSError] () {
-    // const scripts = document.getElementsByTagName('script');
-    // [...scripts].forEach(item => {
-    //   item.setAttribute("crossorigin", "anonymous");
-    // });
     window.onerror = (message, source, lineno, colno, error) => {
-      console.log('onerror -->', message, source, lineno, colno, error)
+      this.updateBuriedInfos({
+        jsError: {
+          message,
+          source,
+          lineno,
+          colno,
+          error
+        }
+      });
     }
+  }
+
+  /**
+   * 检测特定事件类型
+   * @param EventString
+   */
+  [_eventLister] (EventString = 'click dblclick keydown scroll') {
+    // 原生JS无法获取某一元素上的任意事件
+    // chrome 提供 monitorEvents / unmonitorEvents / getEventListeners 等 API，但是仅限 chrome且只能在调试面板中使用
+    // 所以只能使用 addEventListener 监控多个想要监控的事件
+    const addListenerMulti = (element, events, listener) => {
+      const eventsArray = events.split(/\s+/);
+      eventsArray.forEach(item => {
+        element.addEventListener(item, (e) => listener(e))
+      })
+    };
+    addListenerMulti(document.body, EventString, (e) => {
+      let params = {
+        element: e.target,
+        type: e.type,
+        path: (() => {
+          const  path = [];
+          let el = e.target;
+          do {
+            let domString = el.nodeName;
+            [...el.attributes].forEach(attrItem => {
+              domString += `[${attrItem.name}=\"${attrItem.value}\"]`
+            });
+            path.unshift(domString)
+          } while ((el.nodeName.toLowerCase() !== 'html') && (el = el.parentNode));
+          return path.join('>')
+        })()
+      };
+      
+      // console.log('_eventLister -->', params , e);
+      if (e instanceof MouseEvent) { // 鼠标事件
+        params = {
+          ...params,
+          pageX: e.pageX,
+          pageY: e.pageY,
+          clientX: e.clientX,
+          clientY: e.clientY,
+          screenX: e.screenX,
+          screenY: e.screenY
+        }
+      } else if (e instanceof WheelEvent ) { // 滚轮
+        params = {
+          ...params,
+          deltaX: e.deltaX,
+          deltaY: e.deltaY,
+          deltaZ: e.deltaZ,
+          // 0 像素, 1 行, 2 页
+          deltaMode: e.deltaMode
+        }
+      } else if (e instanceof KeyboardEvent ) { // 键盘
+        params = {
+          ...params,
+          code: e.code,
+          keyCode: e.keyCode,
+          // 0 处在键盘的主区域或者无法判断处于哪一个区域, 
+          // 1 处在键盘的左侧
+          // 2 处在键盘的右侧
+          // 3 处在数字小键盘
+          location: e.location
+        }
+        
+      } else if (e instanceof DragEvent ) { // 拖拽
+        
+      } else if (e instanceof TouchEvent ) { // 触摸
+        
+      } else if (e instanceof ProgressEvent) { // 进度
+        
+      }
+      
+      this.updateBuriedInfos({ events: [...this.getBuriedInfos().events, params] });
+    })
   }
   
   [_sendNewBuried] (params) {
-    console.log('发送新的埋点信息')
+    console.log('发送新的埋点信息 -->', params)
   }
 }

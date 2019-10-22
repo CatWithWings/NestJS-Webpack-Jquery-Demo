@@ -37,6 +37,12 @@ class BuriedInfosApp {
     // 每隔5秒重新更新一次内存情况
     this.repeatSetMemoryChart(5000);
     
+    // 每隔5S更新一次error信息
+    this.repeatSetJSError(5000);
+    
+    // repeatEvents
+    this.repeatEvents(5000)
+    
     $('#loading').removeClass('loading');
     this.bindEvents();
   }
@@ -224,7 +230,54 @@ class BuriedInfosApp {
     requestAnimationFrame(loop);
   }
 
-  bindEvents() {}
+  // 模拟产生error
+  createError() {
+    throw new Error('Create Error');
+  }
+
+  // 模拟实时获取error信息，每隔5s获取一次error信息
+  repeatSetJSError(interval) {
+    let previous = Date.now();
+
+    let loop = () => {
+      let now = Date.now();
+      let remaining = now - previous;
+
+      requestAnimationFrame(loop);
+      if (remaining >= interval) {
+        previous = now;
+        const newInfos = this.traceLog.getBuriedInfos();
+        document.getElementById('error_message').innerText = newInfos.jsError.message;
+        document.getElementById('error_position').innerText =
+          `行：${newInfos.jsError.lineno}， 列：${newInfos.jsError.colno}`;
+      }
+    };
+    // 这是为了模拟埋点方实时获取error数据
+    requestAnimationFrame(loop);
+  }
+  
+  // 每隔五秒获取一次events信息
+  repeatEvents(interval) {
+    let previous = Date.now();
+
+    let loop = () => {
+      let now = Date.now();
+      let remaining = now - previous;
+
+      requestAnimationFrame(loop);
+      if (remaining >= interval) {
+        previous = now;
+        const newInfos = this.traceLog.getBuriedInfos();
+        document.getElementById('events_list').innerText = JSON.stringify(newInfos.events);
+      }
+    };
+    // 这是为了模拟埋点方实时获取error数据
+    requestAnimationFrame(loop);
+  }
+
+  bindEvents() {
+    $('#create_error').on('click', () => this.createError())
+  }
 }
 
 new BuriedInfosApp();
