@@ -75,6 +75,32 @@ export default class TraceLog {
     // 向服务端发送新的埋点信息
     this[_sendNewBuried](this.buriedInfos)
   }
+
+  /**
+   * 自定义数据采集
+   * @param handlebar 申请的句柄
+   * @param message 信息
+   * @param callback 回调函数
+   */
+  customerTraceLogs(handlebar, message, callback = () => {}) {
+    const origin = cloneDeep(this.getBuriedInfos()._tracklog);
+    if (!origin[handlebar]) {
+       this.updateBuriedInfos({ 
+           _tracklog: {
+             ...origin, 
+             [handlebar]: [message]
+           }
+        });
+    } else {
+      this.updateBuriedInfos({
+        _tracklog: {
+          ...origin,
+          [handlebar]: [...origin[handlebar], message]
+        }
+      });
+    }
+    callback()
+  }
   
   // 模块内部初始化: 调用所有采集方法
   [_init]() {
@@ -140,7 +166,8 @@ export default class TraceLog {
         colno: null, // 发生错误的列号
         error: null // Error对象
       },
-      events: []
+      events: [],
+      _tracklog: {}
     };
     
     this.updateBuriedInfos(params);
@@ -273,11 +300,11 @@ export default class TraceLog {
           do {
             let domString = el.nodeName;
             [...el.attributes].forEach(attrItem => {
-              domString += `[${attrItem.name}=\"${attrItem.value}\"]`
+              domString += `[${attrItem.name} = \"${attrItem.value}\"]`
             });
             path.unshift(domString)
           } while ((el.nodeName.toLowerCase() !== 'html') && (el = el.parentNode));
-          return path.join('>')
+          return path.join(' --> ')
         })()
       };
       
@@ -320,8 +347,8 @@ export default class TraceLog {
       } else if (e instanceof ProgressEvent) { // 进度
         
       }
-      
-      this.updateBuriedInfos({ events: [...this.getBuriedInfos().events, params] });
+      // 只保存最近20条
+      this.updateBuriedInfos({ events: [params, ...this.getBuriedInfos().events].slice(0, 18) });
     })
   }
   

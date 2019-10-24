@@ -268,15 +268,57 @@ class BuriedInfosApp {
       if (remaining >= interval) {
         previous = now;
         const newInfos = this.traceLog.getBuriedInfos();
-        document.getElementById('events_list').innerText = JSON.stringify(newInfos.events);
+        let listDom = "";
+        if (newInfos.events.length <= 0) {
+          listDom = "<li>暂无数据...</li>";
+        } else {
+          newInfos.events.forEach(item => {
+            const { type, path, element,  ...rest } = item;
+            listDom += `
+            <li>
+              <p>element: ${element}</p>
+              <p>Type: ${type}</p>
+              <p>Path: ${path}</p>
+              <p>Others: ${JSON.stringify(rest)}</p>
+            </li>
+          `;
+          });
+        }
+        document.getElementById("events_list").innerHTML = listDom;
       }
     };
     // 这是为了模拟埋点方实时获取error数据
     requestAnimationFrame(loop);
   }
 
+  createCustomerEvent() {
+    const handlebar = "CAT_CUSTOMER_SUBMIT";
+    const message = `CAT_CUSTOMER_SUBMIT_${Date.now()}`;
+    console.log('test0')
+    this.traceLog.customerTraceLogs(
+      handlebar,
+      message,
+      () => {
+        console.log('test', this)
+        const newInfos = this.traceLog.getBuriedInfos();
+        let listDom = "";
+        for (let key in newInfos._tracklog) {
+          listDom += `
+            <li>
+              <p>Handlebar: ${key}</p>
+              <p>Values: ${newInfos._tracklog[key].join('/')}</p>
+            </li>
+          `;
+        }
+        document.getElementById("customer_events_list").innerHTML = listDom;
+      }
+    )
+  }
+
   bindEvents() {
-    $('#create_error').on('click', () => this.createError())
+    $('#create_error').on('click', () => this.createError());
+    
+    $('#create_customer_events').on('dblclick', ()=> this.createCustomerEvent())
   }
 }
 
